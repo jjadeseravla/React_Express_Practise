@@ -20,7 +20,7 @@ class ShoppingList extends Component {
       <Button
         color="dark"
         style={{marginBottom: '2rem'}}
-        onCLick={() => { const name = prompt('Enter Item');
+        onClick={() => { const name = prompt('Enter Item');
         if(name) {
           this.setState(state => ({
             items: [...state.items, { id: uuid(), name: name }]
@@ -28,6 +28,16 @@ class ShoppingList extends Component {
         }
       }}
       >Add Item</Button>
+
+      <ListGroup>
+        <TransitionGroup className="shopping-list">
+          {items.map(({ id, name }) => (
+            <CSSTransition key={id} timeout={500} classNames="fade">
+              <ListGroupItem>{name}</ListGroupItem>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </ListGroup>
     </Container>
   );
  }
