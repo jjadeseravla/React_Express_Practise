@@ -17,6 +17,12 @@ export default function(state = initialState, action) {
       return {
         ...state
       };
+    case DELETE_ITEM:
+      return {
+        ...state,
+        items: state.items.filter(item => item.id !== action.payload) //doing same thing as in the component but in the reducer (line 44)
+        //action.payload is whatever id is passed in
+      }
     default:
      return state;
   }

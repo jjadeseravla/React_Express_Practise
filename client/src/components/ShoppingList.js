@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { getItems } from '../actions/itemActions';
+import { getItems, deleteItem } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 
 class ShoppingList extends Component {
 
   componentDidMount() {
     this.props.getItems();
+  }
+
+  onDeleteClick = (id) => {
+    this.props.deleteItem(id);// call deleteItem action which can be accessed by this.props.deleteItem and pass in id
   }
 
   render() {
@@ -19,18 +22,6 @@ class ShoppingList extends Component {
     const { items } = this.props.item; //this.props.item is now where our state lives in redux, and we're pulling out items from it
     return(
       <Container>
-        <Button
-          color="dark"
-          style={{marginBottom: '2rem'}}
-          onClick={() => { const name = prompt('Enter Item');
-          if(name) {
-            this.setState(state => ({
-              items: [...state.items, { id: uuid(), name: name }]
-            }));
-          }
-        }}
-        >Add Item</Button>
-
         <ListGroup>
           <TransitionGroup className="shopping-list">
             {items.map(({ id, name }) => (
@@ -40,11 +31,7 @@ class ShoppingList extends Component {
                   className="remove-btn"
                   color="danger"
                   size="sm"
-                  onClick={() => {
-                    this.setState(state => ({
-                      items: state.items.filter(item => item.id !== id)
-                    }));
-                  }}
+                  onClick={this.onDeleteClick.bind(this, id)} //needs to take in parameter of id
                   >&times;</Button>
                   {name}
                 </ListGroupItem>
@@ -66,8 +53,9 @@ const mapStateToProps = (state) => ({
   item: state.item //using item cos thats what we called it in our root reducer
 });
 
-export default connect(mapStateToProps, { getItems }) (ShoppingList);
+export default connect(mapStateToProps, { getItems, deleteItem }) (ShoppingList);
 
+// last line allows all to be accessible to us by this.props.deleteItem or this.props.getItems
 //need to do export default like that when using connect, which allows you to get state from redux into a react component
 //mapStateToProps allows us to take item state and map/turn this into a component property so we can use it in shoppingList.
 //so we can use it as this.props.items

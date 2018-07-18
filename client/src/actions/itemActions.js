@@ -6,6 +6,13 @@ export const getItems = () => {
   };
 };
 
+export const deleteItem = (id) => { //takes id cos needs to know which item to delete
+  return {
+    type: DELETE_ITEM,
+    payload: id// send payload along with dispatch/return
+  };
+};
+
 //could do function getItems() {
 //}
 //line 4 returns to the reducer the type of items
