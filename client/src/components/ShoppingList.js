@@ -13,8 +13,10 @@ class ShoppingList extends Component {
   }
 
   render() {
-    this.props.item.items //'item' represents the entire state object and 'items' is the array inside the state
-    const { items } = this.state;// instead of using: this.state.items, use variable 'items', which is pulling out  from this.state.items
+    //this.props.item.items //'item' represents the entire state object and 'items' is the array inside the state
+    //instead of using line 16 just use line 19
+    //const { items } = this.state;// instead of using: this.state.items, use variable 'items', which is pulling out  from this.state.items
+    const { items } = this.props.item; //this.props.item is now where our state lives in redux, and we're pulling out items from it
     return(
       <Container>
         <Button
