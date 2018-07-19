@@ -15,13 +15,18 @@ export default function(state = initialState, action) {
   switch(action.type) {
     case GET_ITEMS:
       return {
-        ...state
+        ...state //to get current state
       };
     case DELETE_ITEM:
       return {
         ...state,
         items: state.items.filter(item => item.id !== action.payload) //doing same thing as in the component but in the reducer (line 44)
         //action.payload is whatever id is passed in
+      };
+    case ADD_ITEM:
+      return {
+        ...state,
+        items: [action.payload, ...state.items] //action.payload is the new item that comes in and ...state.items just adds it
       }
     default:
      return state;

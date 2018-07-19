@@ -77,6 +77,10 @@ class ItemModal extends Component {
   }
 }
 
-export default connect()(ItemModal);
+const mapStateToProps = state => ({
+  item: state.item
+}) //map the item state to props for this component
+
+export default connect(mapStateToProps, { addItem })(ItemModal);
 
 //this is a container: a component that is hooked to redux.  If youre using redux state inside a react component, its called a container
