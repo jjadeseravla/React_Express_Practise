@@ -1,14 +1,10 @@
 import uuid from 'uuid';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../actions/types';
 
 
 const initialState = {
-  items: [
-    { id: uuid(), name: 'Eggs'},
-    { id: uuid(), name: 'Veg'},
-    { id: uuid(), name: 'Fruit'},
-    { id: uuid(), name: 'Cereal'}
-  ]
+  items: [],
+  loading: false //false as when we fetch data could take a few miliseconds, when we make request we want set to true and when get data back we want it to set to false
 }
 
 export default function(state = initialState, action) {
@@ -27,7 +23,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: [action.payload, ...state.items] //action.payload is the new item that comes in and ...state.items just adds it
-      }
+      };
+    case ITEMS_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
     default:
      return state;
   }

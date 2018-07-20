@@ -20,6 +20,12 @@ export const addItem = (item) => { //takes in whole item
   };
 };
 
+export const setItemsLoading = () => { //dispatch items loading
+  return {
+    type: ITEMS_LOADING, //just sets it from false to true
+  };
+};
+
 //could do function getItems() {
 //}
 //line 4 returns to the reducer the type of items
